@@ -25,12 +25,12 @@ public class OauthConsumer {
     private final AuthCheck authCheck;
 
     // 토큰 발급 -> api로 처리
-    @KafkaListener(topics = "token", groupId = "exchange")
+    /*@KafkaListener(topics = "token", groupId = "exchange")
     public void makeToken(String message) {
         log.debug("Consumed message : {}", message);
 
 //        kafkaTemplate.send("topic", jwt.makeJwt(message));
-    }
+    }*/
 
     public void normalProccess(String message, Constants.ROLE submitRole, String requestIdName, Constants.TOPIC topic) {
         Map<String, String> js = authCheck.checkMessage(message);
