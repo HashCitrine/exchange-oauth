@@ -1,7 +1,7 @@
 package com.exchange.utils;
 
 import com.exchange.Constants;
-import com.exchange.postgres.service.BankstatementService;
+import com.exchange.postgres.service.BankStatementService;
 import com.exchange.postgres.service.MemberService;
 import com.exchange.postgres.service.OrderService;
 import com.google.gson.Gson;
@@ -19,7 +19,7 @@ public class AuthCheck {
 
     private final MemberService memberService;
     private final OrderService orderService;
-    private final BankstatementService bankstatementService;
+    private final BankStatementService bankstatementService;
     private final KafkaTemplate kafkaTemplate;
 
     public Map<String, String> checkMessage(String message){

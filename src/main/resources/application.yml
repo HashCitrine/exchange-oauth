@@ -36,3 +36,6 @@ logging:
     org.hibernate: info
 
 secretKey: "this-is-long-long-exchange-api-secretKey-over-two-five-six-bits"
+
+server:
+  port: 8081

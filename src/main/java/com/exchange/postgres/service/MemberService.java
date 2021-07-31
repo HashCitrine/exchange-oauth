@@ -1,21 +1,13 @@
 package com.exchange.postgres.service;
 
-import com.exchange.Constants;
-import com.exchange.postgres.entity.Bankstatement;
-import com.exchange.postgres.entity.Member;
-import com.exchange.postgres.entity.Wallet;
-import com.exchange.postgres.repository.BankstatementRepository;
+import com.exchange.postgres.repository.BankStatementRepository;
 import com.exchange.postgres.repository.MemberRepository;
 import com.exchange.postgres.repository.WalletRepository;
 import com.exchange.utils.JwtAndPassword;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -24,7 +16,7 @@ import java.time.LocalDateTime;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final BankstatementRepository bankstatementRepository;
+    private final BankStatementRepository bankstatementRepository;
     private final WalletRepository walletRepository;
     private final JwtAndPassword jwtAndPassword;
 

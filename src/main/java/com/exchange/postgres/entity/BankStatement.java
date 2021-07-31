@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class Bankstatement {
+public class BankStatement {
 
     @Id /*@GeneratedValue*/
     private Long transactionId;
