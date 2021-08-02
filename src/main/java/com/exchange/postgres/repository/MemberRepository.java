@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
-    /*@Query(value = "select member_id, reg_date from member where member_id=?1", nativeQuery = true)
-    Object findMember(String memberId);
+//    @Query(value = "select member_id, reg_date from member where member_id=?1", nativeQuery = true)
+//    Object findMember(String memberId);
 
     @Query(value = "select * from member where member_id=?1", nativeQuery = true)
-    Member findByMemberId(String memberId);*/
+    Member findByMemberId(String memberId);
 
     @Query(value = "select role from member where member_id=?1 and use_yn = 'Y'", nativeQuery = true)
     String findMemberRole(String memberId);

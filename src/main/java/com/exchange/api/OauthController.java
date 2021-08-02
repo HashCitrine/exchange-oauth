@@ -15,7 +15,8 @@ public class OauthController {
 
     @PostMapping("/token")
     @ResponseStatus(HttpStatus.CREATED)
-    public String getToken(@RequestParam("memberId") String memberId, @RequestParam("password") String password) {
+    public String getToken(@RequestParam("memberId") String memberId,
+                           @RequestParam("password") String password) {
         return memberService.getToken(memberId, password);
     }
 

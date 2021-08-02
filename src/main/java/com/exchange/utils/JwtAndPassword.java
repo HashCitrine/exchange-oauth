@@ -3,6 +3,7 @@ package com.exchange.utils;
 import com.exchange.postgres.service.MemberService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Slf4j
+@Log4j2
 public class JwtAndPassword {
 
     @Value("${secretKey}")
@@ -29,17 +30,17 @@ public class JwtAndPassword {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    /*public boolean comparePassword(String password, String hashed) {
+    public boolean comparePassword(String password, String hashed) {
         return BCrypt.checkpw(password, hashed);
-    }*/
+    }
 
     public String makeJwt(String memberId) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         Date expireTime = new Date();
-        // 20분
-        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 20);
+        // 120분 (2시간)
+        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 120);
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
@@ -51,6 +52,7 @@ public class JwtAndPassword {
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("memberId", memberId);
+        log.info("[JwtAndPassword]: memberId => {}", memberId);
 
         try {
             return Jwts.builder()

@@ -28,22 +28,23 @@ public class OauthConsumer {
 
     public void normalProcess(String message, Constants.ROLE submitRole, String requestIdName, Constants.TOPIC topic) {
         Map<String, String> js = authCheck.checkMessage(message);
+        log.info("[normalProcess]: {}", js);
         if(null != js) {
             authCheck.sendResult(authCheck.checkRole(js.get("token"), Constants.ROLE.NORMAL), js.get(requestIdName), topic);
         }
     }
 
     // 입출금 기능 이용 시 토큰검증
-    @KafkaListener(topics = "reqDW", groupId = "exchange")
+    @KafkaListener(topics = "reqDw", groupId = "exchange")
     public void bankStatement(String message) {
-        log.debug("reqDW message : {}", message);
+        log.info("reqDw message : {}", message);
         normalProcess(message, Constants.ROLE.NORMAL, "transactionId", Constants.TOPIC.submitDw);
     }
 
     // 거래
     @KafkaListener(topics = "trade", groupId = "exchange")
     public void trade(String message) {
-        log.debug("Consumed message : {}", message);
+        log.info("Consumed message : {}", message);
         normalProcess(message, Constants.ROLE.NORMAL, "orderId", Constants.TOPIC.submitOrder);
     }
 
