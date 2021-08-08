@@ -6,32 +6,26 @@ import com.exchange.postgres.repository.MemberRepository;
 import com.exchange.postgres.repository.WalletRepository;
 import com.exchange.utils.JwtAndPassword;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
-@Slf4j
+@Log4j2
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final BankStatementRepository bankstatementRepository;
     private final WalletRepository walletRepository;
     private final JwtAndPassword jwtAndPassword;
-
     public String getToken(String memberId, String password) {
-//        String tmpMemberId = memberRepository.identifyMember(memberId, jwtAndPassword.hashPassword(password));
 
         Member repoMember = memberRepository.findByMemberId(memberId);
 
-        if(repoMember == null){
-            return "없는 회원입니다.";
-        }
-
-        if(!jwtAndPassword.comparePassword(password, repoMember.getPassword())){
-            return "비밀번호가 틀렸습니다.";
+        if(repoMember == null || !jwtAndPassword.comparePassword(password, repoMember.getPassword())){
+            return "incorrect id or password";
         }
 
         return jwtAndPassword.makeJwt(memberId);

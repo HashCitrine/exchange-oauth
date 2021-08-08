@@ -19,6 +19,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query(value = "select role from member where member_id=?1 and use_yn = 'Y'", nativeQuery = true)
     String findMemberRole(String memberId);
 
-    @Query(value = "select member_id from member where member_id=?1 and password=?2", nativeQuery = true)
-    String identifyMember(String memberId, String password);
+    @Query(value = "select member_id, password from member where member_id=?1", nativeQuery = true)
+    String[] identifyMember(String memberId);
 }

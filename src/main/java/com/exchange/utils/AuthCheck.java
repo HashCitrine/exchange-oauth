@@ -66,7 +66,7 @@ public class AuthCheck {
             }
         } else {
             // 토큰 검증 실패
-            log.info("tokenCheck fail!! requestId : " + requestId);
+            log.info("token Check fail!! requestId : " + requestId);
             updateStatus(topic, requestId, Constants.STATUS.TCKF);
         }
     }
