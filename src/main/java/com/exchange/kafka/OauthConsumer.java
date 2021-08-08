@@ -26,11 +26,11 @@ public class OauthConsumer {
 //        kafkaTemplate.send("topic", jwt.makeJwt(message));
     }*/
 
-    public void normalProcess(String message, Constants.ROLE submitRole, String requestIdName, Constants.TOPIC topic) {
-        Map<String, String> js = authCheck.checkMessage(message);
-        log.info("[normalProcess]: {}", js);
-        if(null != js) {
-            authCheck.sendResult(authCheck.checkRole(js.get("token"), Constants.ROLE.NORMAL), js.get(requestIdName), topic);
+    public void normalProcess(String message, Constants.ROLE submitRole, Constants.TOPIC topic) {
+        Map<String, String> json = authCheck.checkMessage(message);
+        log.debug("[normalProcess]: {}", json.toString());
+        if(null != json) {
+            authCheck.sendResult(authCheck.checkRole(json.get("token"), submitRole), json.get("requestId"), topic);
         }
     }
 
@@ -38,14 +38,14 @@ public class OauthConsumer {
     @KafkaListener(topics = "reqDw", groupId = "exchange")
     public void bankStatement(String message) {
         log.info("reqDw message : {}", message);
-        normalProcess(message, Constants.ROLE.NORMAL, "transactionId", Constants.TOPIC.submitDw);
+        normalProcess(message, Constants.ROLE.NORMAL, Constants.TOPIC.submitDw);
     }
 
     // 거래
-    @KafkaListener(topics = "trade", groupId = "exchange")
+    @KafkaListener(topics = "reqOrder", groupId = "exchange")
     public void trade(String message) {
         log.info("Consumed message : {}", message);
-        normalProcess(message, Constants.ROLE.NORMAL, "orderId", Constants.TOPIC.submitOrder);
+        normalProcess(message, Constants.ROLE.NORMAL, Constants.TOPIC.submitOrder);
     }
 
 
