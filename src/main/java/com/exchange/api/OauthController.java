@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Log4j2
 @RequiredArgsConstructor
+@RequestMapping("/oauth")
 public class OauthController {
 
     private final MemberService memberService;

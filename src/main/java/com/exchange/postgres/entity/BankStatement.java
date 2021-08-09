@@ -23,4 +23,6 @@ public class BankStatement {
     private Constants.TRANSACTION_TYPE transactionType;
 
     private Long krw;
+
+    private LocalDateTime uptDate;
 }
